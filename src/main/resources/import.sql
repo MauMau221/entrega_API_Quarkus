@@ -1,4 +1,7 @@
--- Inserindo produtos de teste
-INSERT INTO Produto(id, nome, descricao, preco) VALUES (nextval('hibernate_sequence'), 'Notebook', 'Notebook Dell 16GB RAM', 4500.0);
-INSERT INTO Produto(id, nome, descricao, preco) VALUES (nextval('hibernate_sequence'), 'Smartphone', 'iPhone 13 Pro 256GB', 6700.0);
-INSERT INTO Produto(id, nome, descricao, preco) VALUES (nextval('hibernate_sequence'), 'Tablet', 'iPad Air 4 64GB', 4200.0);
+INSERT INTO Customer (id, name, email) VALUES (1, 'Mauricio', 'mauricio@email.com');
+INSERT INTO Profile (id, address, phone, customer_id) VALUES (1, 'Rua A', '11999999999', 1);
+INSERT INTO Product (id, name, price) VALUES (1, 'Notebook', 3500.00);
+INSERT INTO Product (id, name, price) VALUES (2, 'Mouse', 150.00);
+INSERT INTO Orders (id, status, customer_id) VALUES (1, 'NEW', 1);
+INSERT INTO order_product (order_id, product_id) VALUES (1, 1);
+INSERT INTO order_product (order_id, product_id) VALUES (1, 2);
