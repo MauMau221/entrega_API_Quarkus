@@ -1,7 +1,7 @@
 package entrega.controllers;
-
+//Controllers responsavel pelos EndPoints REST (Resource)
+import entrega.dtos.CustomerDTO;
 import entrega.models.Customer;
-import entrega.repositories.CustomerRepository;
 import entrega.services.CustomerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -15,13 +15,13 @@ import java.util.List;
 public class CustomerController {
 
     @Inject
-    CustomerRepository customerRepository;
-    @Inject
     CustomerService customerService;
 
     @GET
-    public List<Customer> list() {
-        return customerService.listAll();
+    public List<CustomerDTO> list() {
+        return customerService.listAll().stream()
+                .map(c -> new CustomerDTO(c.id, c.name, c.email))
+                .toList();
     }
 
     @POST

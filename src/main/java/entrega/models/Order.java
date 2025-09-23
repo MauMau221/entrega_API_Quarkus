@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order extends PanacheEntity {
 
     @ManyToOne
@@ -19,7 +20,7 @@ public class Order extends PanacheEntity {
     @ManyToMany
     @JoinTable(
             name = "order_product",
-            joinColumns = @JoinColumn(name = "product_id"),
+            joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     public List<Product> products;
