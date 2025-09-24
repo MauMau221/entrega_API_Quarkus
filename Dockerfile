@@ -6,9 +6,8 @@ RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 # Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar todos os arquivos necessários
-COPY pom.xml .
-COPY src src
+# Copiar todos os arquivos do projeto
+COPY . .
 
 # Build da aplicação usando Maven diretamente
 RUN mvn clean package -DskipTests
