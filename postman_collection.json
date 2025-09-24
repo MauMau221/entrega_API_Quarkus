@@ -1,0 +1,810 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789abc",
+		"name": "API E-commerce Quarkus",
+		"description": "Coleção completa de endpoints da API de E-commerce desenvolvida com Quarkus Framework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345678"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Listar todos os clientes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": "Retorna uma lista com todos os clientes cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/customers/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"{{customerId}}"
+							]
+						},
+						"description": "Retorna um cliente específico pelo seu ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar novo cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao.silva@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": "Cria um novo cliente no sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar cliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"João Silva Atualizado\",\n  \"email\": \"joao.atualizado@email.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"{{customerId}}"
+							]
+						},
+						"description": "Atualiza os dados de um cliente existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"{{customerId}}"
+							]
+						},
+						"description": "Remove um cliente do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar clientes por nome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/customers/search?name=João",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "João",
+									"description": "Nome para busca"
+								}
+							]
+						},
+						"description": "Busca clientes que contenham o nome especificado"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gerenciamento de clientes"
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Listar todos os produtos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Retorna uma lista com todos os produtos cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar produto por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "Retorna um produto específico pelo seu ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar novo produto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Smartphone Samsung\",\n  \"price\": 2500.00,\n  \"description\": \"Smartphone Samsung Galaxy com 128GB de armazenamento\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Cria um novo produto no sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar produto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Smartphone Samsung Atualizado\",\n  \"price\": 2800.00,\n  \"description\": \"Smartphone Samsung Galaxy com 256GB de armazenamento\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "Atualiza os dados de um produto existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar produto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "Remove um produto do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar produtos por nome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products/search?name=Notebook",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Notebook",
+									"description": "Nome para busca"
+								}
+							]
+						},
+						"description": "Busca produtos que contenham o nome especificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar produtos por faixa de preço",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/products/price-range?minPrice=100&maxPrice=500",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								"price-range"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "100",
+									"description": "Preço mínimo"
+								},
+								{
+									"key": "maxPrice",
+									"value": "500",
+									"description": "Preço máximo"
+								}
+							]
+						},
+						"description": "Busca produtos dentro de uma faixa de preço especificada"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gerenciamento de produtos"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Listar todos os pedidos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Retorna uma lista com todos os pedidos cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar pedido por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						},
+						"description": "Retorna um pedido específico pelo seu ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar novo pedido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer\": {\n    \"id\": 1\n  },\n  \"products\": [\n    {\n      \"id\": 1\n    },\n    {\n      \"id\": 2\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Cria um novo pedido no sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar pedido",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"PROCESSING\",\n  \"products\": [\n    {\n      \"id\": 1\n    },\n    {\n      \"id\": 3\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						},
+						"description": "Atualiza os dados de um pedido existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar pedido",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						},
+						"description": "Remove um pedido do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar pedidos por cliente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"customer",
+								"{{customerId}}"
+							]
+						},
+						"description": "Busca todos os pedidos de um cliente específico"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar pedidos por status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/status/NEW",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"status",
+								"NEW"
+							]
+						},
+						"description": "Busca todos os pedidos com um status específico"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar produto ao pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"products",
+								"{{productId}}"
+							]
+						},
+						"description": "Adiciona um produto a um pedido existente"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gerenciamento de pedidos"
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Listar todos os perfis",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profiles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles"
+							]
+						},
+						"description": "Retorna uma lista com todos os perfis cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar perfil por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profiles/{{profileId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"{{profileId}}"
+							]
+						},
+						"description": "Retorna um perfil específico pelo seu ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar novo perfil",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": \"Rua das Palmeiras, 456\",\n  \"phone\": \"(11) 98765-4321\",\n  \"city\": \"São Paulo\",\n  \"state\": \"SP\",\n  \"zipCode\": \"04567-890\",\n  \"customer\": {\n    \"id\": 1\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profiles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles"
+							]
+						},
+						"description": "Cria um novo perfil no sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar perfil",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"address\": \"Avenida das Flores, 789\",\n  \"phone\": \"(11) 99876-5432\",\n  \"city\": \"São Paulo\",\n  \"state\": \"SP\",\n  \"zipCode\": \"01234-567\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profiles/{{profileId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"{{profileId}}"
+							]
+						},
+						"description": "Atualiza os dados de um perfil existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar perfil",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profiles/{{profileId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"{{profileId}}"
+							]
+						},
+						"description": "Remove um perfil do sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar perfil por cliente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profiles/customer/{{customerId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"customer",
+								"{{customerId}}"
+							]
+						},
+						"description": "Busca o perfil de um cliente específico"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar perfis por cidade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profiles/city/São Paulo",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"city",
+								"São Paulo"
+							]
+						},
+						"description": "Busca todos os perfis de uma cidade específica"
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar perfis por estado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profiles/state/SP",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profiles",
+								"state",
+								"SP"
+							]
+						},
+						"description": "Busca todos os perfis de um estado específico"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gerenciamento de perfis de clientes"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "customerId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "productId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "profileId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

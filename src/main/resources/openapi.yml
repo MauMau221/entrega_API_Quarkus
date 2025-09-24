@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: API de E-commerce Quarkus
+  description: |
+    API REST para sistema de e-commerce desenvolvida com Quarkus.
+    
+    Esta API permite gerenciar clientes, produtos, pedidos e perfis de usuários.
+    
+    ## Funcionalidades principais:
+    - Gerenciamento completo de clientes (CRUD)
+    - Catálogo de produtos com busca e filtros
+    - Sistema de pedidos com status de rastreamento
+    - Perfis de clientes com informações de contato e endereço
+    
+    ## Tecnologias utilizadas:
+    - Quarkus Framework
+    - Hibernate ORM com Panache
+    - Banco de dados H2
+    - Bean Validation
+    - OpenAPI/Swagger
+  version: 1.0.0
+  contact:
+    name: Equipe de Desenvolvimento
+    email: dev@ecommerce.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desenvolvimento
+  - url: https://api.ecommerce.com
+    description: Servidor de produção
+
+tags:
+  - name: Customers
+    description: Operações para gerenciamento de clientes
+  - name: Products
+    description: Operações para gerenciamento de produtos
+  - name: Orders
+    description: Operações para gerenciamento de pedidos
+  - name: Profiles
+    description: Operações para gerenciamento de perfis de clientes
+
+paths:
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: Listar todos os clientes
+      description: Retorna uma lista com todos os clientes cadastrados no sistema
+      responses:
+        '200':
+          description: Lista de clientes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDTO'
+        '500':
+          description: Erro interno do servidor
+          
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Listar todos os produtos
+      description: Retorna uma lista com todos os produtos disponíveis no catálogo
+      responses:
+        '200':
+          description: Lista de produtos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
+                  
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: Listar todos os pedidos
+      description: Retorna uma lista com todos os pedidos do sistema
+      responses:
+        '200':
+          description: Lista de pedidos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDTO'
+
+components:
+  schemas:
+    CustomerDTO:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único do cliente
+          example: 1
+        name:
+          type: string
+          description: Nome completo do cliente
+          example: "João Silva"
+        email:
+          type: string
+          format: email
+          description: Email do cliente
+          example: "joao@email.com"
+          
+    ProductDTO:
+      type: object
+      required:
+        - id
+        - name
+        - price
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único do produto
+          example: 1
+        name:
+          type: string
+          description: Nome do produto
+          example: "Notebook Dell"
+        price:
+          type: number
+          format: decimal
+          description: Preço do produto
+          example: 3500.00
+        description:
+          type: string
+          description: Descrição do produto
+          example: "Notebook Dell Inspiron com 8GB RAM"
+          
+    OrderDTO:
+      type: object
+      required:
+        - id
+        - customerId
+        - customerName
+        - status
+        - orderDate
+        - totalAmount
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único do pedido
+          example: 1
+        customerId:
+          type: integer
+          format: int64
+          description: ID do cliente que fez o pedido
+          example: 1
+        customerName:
+          type: string
+          description: Nome do cliente
+          example: "João Silva"
+        status:
+          type: string
+          enum: [NEW, PROCESSING, SHIPPED, DELIVERED, CANCELLED]
+          description: Status atual do pedido
+          example: "NEW"
+        orderDate:
+          type: string
+          format: date-time
+          description: Data e hora do pedido
+          example: "2024-01-15T10:30:00"
+        totalAmount:
+          type: number
+          format: decimal
+          description: Valor total do pedido
+          example: 3650.00
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+          description: Lista de produtos do pedido
+          
+    ProfileDTO:
+      type: object
+      required:
+        - id
+        - address
+        - phone
+        - customerId
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único do perfil
+          example: 1
+        address:
+          type: string
+          description: Endereço completo
+          example: "Rua das Flores, 123"
+        phone:
+          type: string
+          description: Telefone de contato
+          example: "(11) 99999-9999"
+        city:
+          type: string
+          description: Cidade
+          example: "São Paulo"
+        state:
+          type: string
+          description: Estado (sigla)
+          example: "SP"
+        zipCode:
+          type: string
+          description: CEP
+          example: "01234-567"
+        customerId:
+          type: integer
+          format: int64
+          description: ID do cliente proprietário do perfil
+          example: 1
+
+  responses:
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Recurso não encontrado"
+                
+    BadRequest:
+      description: Dados inválidos
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Dados fornecidos são inválidos"
+                
+    InternalServerError:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Erro interno do servidor"

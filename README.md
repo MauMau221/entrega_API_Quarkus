@@ -1,87 +1,334 @@
-# code-with-quarkus
+# API de E-commerce Quarkus
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+API REST para sistema de e-commerce desenvolvida com Quarkus Framework.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## 🚀 Tecnologias Utilizadas
 
-## Running the application in dev mode
+- **Java 21**
+- **Quarkus Framework 3.26.4**
+- **Hibernate ORM com Panache**
+- **Banco de dados H2 (em memória)**
+- **Bean Validation**
+- **OpenAPI/Swagger UI**
+- **Maven**
 
-You can run your application in dev mode that enables live coding using:
+## 📋 Funcionalidades
 
-```shell script
+### Entidades e Relacionamentos
+- **Customer (Cliente)**: Gerenciamento de clientes
+- **Product (Produto)**: Catálogo de produtos
+- **Order (Pedido)**: Sistema de pedidos com rastreamento
+- **Profile (Perfil)**: Informações de contato e endereço dos clientes
+
+### Relacionamentos Implementados
+- **One-to-One**: Customer ↔ Profile
+- **One-to-Many**: Customer → Orders
+- **Many-to-Many**: Orders ↔ Products
+
+### Endpoints Disponíveis
+
+#### Customers (Clientes)
+- `GET /customers` - Listar todos os clientes
+- `GET /customers/{id}` - Buscar cliente por ID
+- `POST /customers` - Criar novo cliente
+- `PUT /customers/{id}` - Atualizar cliente
+- `DELETE /customers/{id}` - Deletar cliente
+- `GET /customers/search?name={nome}` - Buscar clientes por nome
+
+#### Products (Produtos)
+- `GET /products` - Listar todos os produtos
+- `GET /products/{id}` - Buscar produto por ID
+- `POST /products` - Criar novo produto
+- `PUT /products/{id}` - Atualizar produto
+- `DELETE /products/{id}` - Deletar produto
+- `GET /products/search?name={nome}` - Buscar produtos por nome
+- `GET /products/price-range?minPrice={min}&maxPrice={max}` - Buscar por faixa de preço
+
+#### Orders (Pedidos)
+- `GET /orders` - Listar todos os pedidos
+- `GET /orders/{id}` - Buscar pedido por ID
+- `POST /orders` - Criar novo pedido
+- `PUT /orders/{id}` - Atualizar pedido
+- `DELETE /orders/{id}` - Deletar pedido
+- `GET /orders/customer/{customerId}` - Buscar pedidos por cliente
+- `GET /orders/status/{status}` - Buscar pedidos por status
+- `POST /orders/{orderId}/products/{productId}` - Adicionar produto ao pedido
+
+#### Profiles (Perfis)
+- `GET /profiles` - Listar todos os perfis
+- `GET /profiles/{id}` - Buscar perfil por ID
+- `POST /profiles` - Criar novo perfil
+- `PUT /profiles/{id}` - Atualizar perfil
+- `DELETE /profiles/{id}` - Deletar perfil
+- `GET /profiles/customer/{customerId}` - Buscar perfil por cliente
+- `GET /profiles/city/{city}` - Buscar perfis por cidade
+- `GET /profiles/state/{state}` - Buscar perfis por estado
+
+## 🛠️ Como Executar
+
+### Pré-requisitos
+- Java 11 ou superior
+- Maven 3.6+
+- Git
+
+### Configuração do Repositório Git
+```bash
+# Clone o repositório
+git clone <url-do-repositorio>
+
+# Navegue para o diretório do projeto
+cd entrega_API_Quarkus
+
+# Verifique o status do repositório
+git status
+
+# Para fazer commit das alterações
+git add .
+git commit -m "Implementação completa da API de E-commerce Quarkus"
+git push origin main
+```
+
+### Executando em Modo Desenvolvimento
+```bash
+# Execute em modo desenvolvimento
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+### Executando com Maven
+```bash
+# Compilar o projeto
+./mvnw clean compile
 
-## Packaging and running the application
+# Executar em modo desenvolvimento
+./mvnw quarkus:dev
 
-The application can be packaged using:
+# Gerar executável JAR
+./mvnw clean package
 
-```shell script
-./mvnw package
+# Executar o JAR gerado
+java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+## 📚 Documentação da API
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+Após iniciar a aplicação, acesse:
 
-If you want to build an _über-jar_, execute the following command:
+- **Swagger UI**: http://localhost:8080/swagger
+- **OpenAPI JSON**: http://localhost:8080/q/openapi
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+## 🚀 Coleção do Postman
+
+Uma coleção completa do Postman está disponível no arquivo `postman_collection.json` com exemplos de todas as chamadas da API.
+
+### Como importar no Postman:
+
+1. Abra o Postman
+2. Clique em "Import"
+3. Selecione o arquivo `postman_collection.json`
+4. A coleção será importada com todas as requisições configuradas
+
+### Variáveis da coleção:
+- `baseUrl`: http://localhost:8080
+- `customerId`: 1 (ID de exemplo do cliente)
+- `productId`: 1 (ID de exemplo do produto)
+- `orderId`: 1 (ID de exemplo do pedido)
+- `profileId`: 1 (ID de exemplo do perfil)
+
+### Endpoints incluídos na coleção:
+- **28 requisições** organizadas em 4 pastas
+- **Customers**: 6 endpoints
+- **Products**: 7 endpoints  
+- **Orders**: 8 endpoints
+- **Profiles**: 7 endpoints
+
+## 🗄️ Banco de Dados
+
+O projeto utiliza H2 em modo memória com dados de exemplo pré-carregados:
+
+- **3 clientes** com perfis completos
+- **4 produtos** variados
+- **3 pedidos** em diferentes status
+- **Relacionamentos** entre todas as entidades
+
+### Status dos Pedidos
+- `NEW` - Novo pedido
+- `PROCESSING` - Em processamento
+- `SHIPPED` - Enviado
+- `DELIVERED` - Entregue
+- `CANCELLED` - Cancelado
+
+## ✅ Validações Implementadas
+
+### Customer
+- Nome obrigatório (2-100 caracteres)
+- Email obrigatório com formato válido e único
+
+### Product
+- Nome obrigatório (2-100 caracteres)
+- Preço obrigatório (maior que 0)
+- Descrição opcional (máximo 500 caracteres)
+
+### Order
+- Cliente obrigatório
+- Status com valores válidos do enum
+- Cálculo automático do valor total
+
+### Profile
+- Endereço obrigatório (10-200 caracteres)
+- Telefone obrigatório com formato válido
+- CEP opcional com formato válido
+- Cidade e estado opcionais
+
+## 🔧 Configurações
+
+### application.properties
+```properties
+# Banco de dados H2
+quarkus.datasource.db-kind=h2
+quarkus.datasource.username=sa
+quarkus.datasource.password=sa
+
+# Configurações do Hibernate
+quarkus.hibernate-orm.database.generation=drop-and-create
+quarkus.hibernate-orm.sql-load-script=import.sql
+
+# Swagger/OpenAPI
+quarkus.swagger-ui.always-include=true
+quarkus.swagger-ui.path=/swagger
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## 🧪 Testando a API
 
-## Creating a native executable
+### Exemplos de Requisições
 
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
+#### Criar um cliente:
+```bash
+curl -X POST http://localhost:8080/customers \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "João Silva",
+    "email": "joao@email.com"
+  }'
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+#### Criar um produto:
+```bash
+curl -X POST http://localhost:8080/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Smartphone",
+    "price": 1500.00,
+    "description": "Smartphone Android 128GB"
+  }'
 ```
 
-You can then execute your native executable with: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
+#### Criar um pedido:
+```bash
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer": {"id": 1},
+    "products": [{"id": 1}, {"id": 2}]
+  }'
+```
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+## 📊 Estrutura do Projeto
 
-## Related Guides
+```
+src/
+├── main/
+│   ├── java/entrega/
+│   │   ├── controllers/     # Controladores REST
+│   │   ├── dtos/           # Data Transfer Objects
+│   │   ├── exceptions/     # Tratamento de exceções
+│   │   ├── models/         # Entidades JPA
+│   │   │   └── enums/      # Enumeradores
+│   │   ├── repositories/   # Repositórios Panache
+│   │   └── services/       # Lógica de negócio
+│   └── resources/
+│       ├── application.properties
+│       ├── import.sql      # Dados iniciais
+│       └── openapi.yml     # Documentação OpenAPI
+└── test/                   # Testes unitários
+```
 
-- REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate Jakarta REST resources for your Hibernate Panache entities and repositories
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
-- Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
+## 🎯 Recursos Implementados
 
-## Provided Code
+- ✅ **Framework Quarkus** (versão mais recente)
+- ✅ **Java 21** (superior ao Java 11)
+- ✅ **Maven** como gerenciador de dependências
+- ✅ **Banco H2** para persistência
+- ✅ **Hibernate+Panache** para ORM
+- ✅ **3 entidades** com relacionamentos (One-to-One, One-to-Many, Many-to-Many)
+- ✅ **Validações Bean Validation** completas
+- ✅ **Enum OrderStatus** implementado
+- ✅ **15+ endpoints REST** (5+ por entidade)
+- ✅ **Operações CRUD** completas
+- ✅ **Consultas personalizadas** por entidade
+- ✅ **Códigos de status HTTP** apropriados
+- ✅ **Documentação OpenAPI** completa
+- ✅ **Swagger UI** personalizado
+- ✅ **Tratamento de exceções** global
 
-### Hibernate ORM
+## 📝 Notas Importantes
 
-Create your first JPA entity
+- O banco de dados é recriado a cada reinicialização da aplicação
+- Dados de exemplo são carregados automaticamente via `import.sql`
+- A documentação da API está disponível em `/swagger`
+- Todos os endpoints retornam JSON
+- Validações são aplicadas automaticamente via Bean Validation
+- Tratamento de erros global com mensagens em português
 
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
+## 📁 Estrutura de Arquivos para Entrega
 
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
+```
+entrega_API_Quarkus/
+├── src/                          # Código-fonte
+│   ├── main/java/entrega/
+│   │   ├── controllers/          # Controladores REST
+│   │   ├── dtos/                # Data Transfer Objects
+│   │   ├── exceptions/          # Tratamento de exceções
+│   │   ├── models/              # Entidades JPA
+│   │   ├── repositories/        # Repositórios Panache
+│   │   └── services/            # Lógica de negócio
+│   └── resources/
+│       ├── application.properties
+│       ├── import.sql           # Dados iniciais
+│       └── openapi.yml          # Documentação OpenAPI
+├── pom.xml                      # Configuração Maven
+├── README.md                    # Documentação do projeto
+├── postman_collection.json      # Coleção do Postman
+└── mvnw / mvnw.cmd             # Maven Wrapper
+```
 
+## 🔧 Comandos Git para Entrega
 
-### REST Data with Panache
+```bash
+# Inicializar repositório (se ainda não foi inicializado)
+git init
 
-Generating Jakarta REST resources with Panache
+# Adicionar todos os arquivos
+git add .
 
-[Related guide section...](https://quarkus.io/guides/rest-data-panache)
+# Fazer commit inicial
+git commit -m "Implementação completa da API de E-commerce Quarkus
 
+- Framework Quarkus 3.26.4 com Java 21
+- 4 entidades com relacionamentos (One-to-One, One-to-Many, Many-to-Many)
+- 28+ endpoints REST com CRUD completo
+- Validações Bean Validation
+- Documentação OpenAPI/Swagger
+- Coleção Postman com todos os endpoints
+- Tratamento de exceções global
+- Dados de exemplo pré-carregados"
 
-### REST
+# Conectar com repositório remoto (GitHub/GitLab)
+git remote add origin <url-do-repositorio>
 
-Easily start your REST Web Services
+# Enviar para o repositório remoto
+git push -u origin main
+```
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+---
+
+**Desenvolvido com ❤️ usando Quarkus Framework**
