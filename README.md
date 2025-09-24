@@ -332,8 +332,8 @@ git push origin main
    - Conecte seu repositório GitHub
    - Configure:
      - **Name**: `api-ecommerce-quarkus`
-     - **Environment**: `Node.js` (ou `Python`)
-     - **Build Command**: `./mvnw clean package -DskipTests`
+     - **Environment**: `Shell`
+     - **Build Command**: `chmod +x build.sh && ./build.sh`
      - **Start Command**: `java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar`
      - **Port**: `8080`
    - Clique em "Create Web Service"
