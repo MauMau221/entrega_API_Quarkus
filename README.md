@@ -325,18 +325,24 @@ git commit -m "Configuração para deploy no Render"
 git push origin main
 ```
 
-2. **Configurar no Render:**
+2. **Configurar no Render (Recomendado - Sem Docker):**
    - Acesse [render.com](https://render.com)
    - Faça login com sua conta GitHub
    - Clique em "New +" → "Web Service"
    - Conecte seu repositório GitHub
    - Configure:
      - **Name**: `api-ecommerce-quarkus`
-     - **Environment**: `Docker`
-     - **Dockerfile Path**: `./Dockerfile`
+     - **Environment**: `Node.js` (ou `Python`)
      - **Build Command**: `./mvnw clean package -DskipTests`
      - **Start Command**: `java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar`
+     - **Port**: `8080`
    - Clique em "Create Web Service"
+
+3. **Alternativa com Docker:**
+   - **Environment**: `Docker`
+   - **Dockerfile Path**: `./Dockerfile`
+   - **Build Command**: `./mvnw clean package -DskipTests`
+   - **Start Command**: `java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar`
 
 3. **Variáveis de ambiente no Render:**
    - `QUARKUS_PROFILE` = `prod`

@@ -1,16 +1,25 @@
 FROM openjdk:21-jdk-slim
 
-# Instalar Maven
-RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+# Instalar Maven e ferramentas necessárias
+RUN apt-get update && \
+    apt-get install -y maven curl && \
+    rm -rf /var/lib/apt/lists/*
 
 # Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar todos os arquivos do projeto
-COPY . .
+# Copiar arquivos de configuração primeiro (para cache do Docker)
+COPY pom.xml .
+COPY mvnw* ./
 
-# Build da aplicação usando Maven diretamente
-RUN mvn clean package -DskipTests
+# Copiar código fonte
+COPY src ./src
+
+# Dar permissão de execução ao mvnw
+RUN chmod +x ./mvnw
+
+# Build da aplicação
+RUN ./mvnw clean package -DskipTests
 
 # Expor porta
 EXPOSE 8080
