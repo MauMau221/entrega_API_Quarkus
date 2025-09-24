@@ -6,16 +6,12 @@ RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 # Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar arquivos de configuração
+# Copiar todos os arquivos necessários
 COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
-
-# Copiar código fonte
 COPY src src
 
-# Build da aplicação
-RUN ./mvnw clean package -DskipTests
+# Build da aplicação usando Maven diretamente
+RUN mvn clean package -DskipTests
 
 # Expor porta
 EXPOSE 8080
