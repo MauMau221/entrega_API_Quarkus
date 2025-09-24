@@ -301,33 +301,51 @@ entrega_API_Quarkus/
 └── mvnw / mvnw.cmd             # Maven Wrapper
 ```
 
-## 🔧 Comandos Git para Entrega
+## 🚀 Deploy no Render
 
+### Configuração para Render
+
+O projeto está configurado para deploy automático no Render com os seguintes arquivos:
+
+- `Dockerfile` - Configuração de container
+- `render.yaml` - Configuração específica do Render
+- `application-prod.properties` - Configurações de produção
+
+### Como fazer deploy no Render:
+
+1. **Subir o código para o GitHub:**
 ```bash
-# Inicializar repositório (se ainda não foi inicializado)
-git init
-
 # Adicionar todos os arquivos
 git add .
 
-# Fazer commit inicial
-git commit -m "Implementação completa da API de E-commerce Quarkus
+# Fazer commit
+git commit -m "Configuração para deploy no Render"
 
-- Framework Quarkus 3.26.4 com Java 21
-- 4 entidades com relacionamentos (One-to-One, One-to-Many, Many-to-Many)
-- 28+ endpoints REST com CRUD completo
-- Validações Bean Validation
-- Documentação OpenAPI/Swagger
-- Coleção Postman com todos os endpoints
-- Tratamento de exceções global
-- Dados de exemplo pré-carregados"
-
-# Conectar com repositório remoto (GitHub/GitLab)
-git remote add origin <url-do-repositorio>
-
-# Enviar para o repositório remoto
-git push -u origin main
+# Enviar para o GitHub
+git push origin main
 ```
+
+2. **Configurar no Render:**
+   - Acesse [render.com](https://render.com)
+   - Faça login com sua conta GitHub
+   - Clique em "New +" → "Web Service"
+   - Conecte seu repositório GitHub
+   - Configure:
+     - **Name**: `api-ecommerce-quarkus`
+     - **Environment**: `Docker`
+     - **Dockerfile Path**: `./Dockerfile`
+     - **Build Command**: `./mvnw clean package -DskipTests`
+     - **Start Command**: `java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar`
+   - Clique em "Create Web Service"
+
+3. **Variáveis de ambiente no Render:**
+   - `QUARKUS_PROFILE` = `prod`
+   - `JAVA_OPTS` = `-Xmx512m -Xms256m`
+
+### URLs após deploy:
+- **API**: `https://api-ecommerce-quarkus.onrender.com`
+- **Swagger UI**: `https://api-ecommerce-quarkus.onrender.com/swagger`
+- **Health Check**: `https://api-ecommerce-quarkus.onrender.com/q/health`
 
 ---
 

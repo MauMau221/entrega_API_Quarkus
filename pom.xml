@@ -15,6 +15,7 @@
         <quarkus.platform.version>3.26.4</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
+        <quarkus.package.type>uber-jar</quarkus.package.type>
     </properties>
 
     <dependencyManagement>
@@ -30,10 +31,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest</artifactId>

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: api-ecommerce-quarkus
+    env: docker
+    dockerfilePath: ./Dockerfile
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar
+    envVars:
+      - key: QUARKUS_PROFILE
+        value: prod
+      - key: JAVA_OPTS
+        value: -Xmx512m -Xms256m
+    healthCheckPath: /q/health
+    plan: free

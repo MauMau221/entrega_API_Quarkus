@@ -783,6 +783,11 @@
 	"variable": [
 		{
 			"key": "baseUrl",
+			"value": "https://api-ecommerce-quarkus.onrender.com",
+			"type": "string"
+		},
+		{
+			"key": "localUrl",
 			"value": "http://localhost:8080",
 			"type": "string"
 		},
