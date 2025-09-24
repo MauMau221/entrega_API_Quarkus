@@ -1,17 +1,24 @@
-FROM registry.access.redhat.com/ubi8/openjdk-21:1.20
+FROM openjdk:21-jdk-slim
 
-ENV LANGUAGE='en_US:en'
+# Instalar Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
-# We make four distinct layers so if there are application changes the library layers can be reused
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+# Definir diretório de trabalho
+WORKDIR /app
 
+# Copiar arquivos de configuração
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+
+# Copiar código fonte
+COPY src src
+
+# Build da aplicação
+RUN ./mvnw clean package -DskipTests
+
+# Expor porta
 EXPOSE 8080
-USER 185
-ENV AB_JOLOKIA_OFF=""
-ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
-ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
+# Comando para executar a aplicação
+CMD ["java", "-jar", "target/code-with-quarkus-1.0.0-SNAPSHOT-runner.jar"]
